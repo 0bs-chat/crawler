@@ -10,13 +10,11 @@ COPY requirements.txt /requirements.txt
 RUN uv pip install --upgrade -r /requirements.txt --no-cache-dir --system
 
 # Add files
-ADD handler.py .
-ADD test_input.json .
+ADD app.py .
 
 RUN uv run playwright install --with-deps
 
-# Run the handler
-CMD python -u /handler.py
+CMD uv run /app.py
 
-# sudo docker build --platform linux/amd64 --tag mantrakp04/crawler:bih . && sudo docker push mantrakp04/crawler:bih
-# sudo docker run -it --rm mantrakp04/crawler:bih
+# sudo docker build --platform linux/amd64 --tag mantrakp04/crawler:v1 . && sudo docker push mantrakp04/crawler:v1
+# sudo docker run -it --platform linux/amd64 -p 7860:7860 --rm mantrakp04/crawler:v1
